@@ -34,12 +34,18 @@ func args(filename string) {
 		split := strings.Split(defaultImport, "/")
 		pkgName := split[len(split)-1]
 		if !(a.Name.Name == "prelude" && pkgName == "prelude") {
-			if pkgName == "prelude" {
-				astutil.AddNamedImport(fset, a, "_", defaultImport)
-			} else {
-				astutil.AddImport(fset, a, defaultImport)
-			}
+			astutil.AddImport(fset, a, defaultImport)
 		}
+	}
+
+	if a.Name.Name != "prelude" {
+		a.Decls = append(a.Decls, &ast.GenDecl{
+			Tok: token.VAR,
+			Specs: []ast.Spec{&ast.ValueSpec{
+				Names:  []*ast.Ident{&ast.Ident{Name: "_"}},
+				Values: []ast.Expr{&ast.Ident{Name: "prelude.Len"}},
+			}},
+		})
 	}
 
 	var buf bytes.Buffer

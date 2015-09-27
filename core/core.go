@@ -282,3 +282,13 @@ func Get(args ...Any) Any {
 		}
 	}
 }
+
+func Len(arg Any) Any {
+	if a, ok := arg.([]Any); ok {
+		return len(a)
+	} else if a, ok := arg.(string); ok {
+		return len(a)
+	} else {
+		panic("argument to let must include slice/vector/string")
+	}
+}

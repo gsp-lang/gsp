@@ -463,7 +463,7 @@ func makeAssert(node *parser.CallNode) *ast.TypeAssertExpr {
 	return makeTypeAssertion(EvalExpr(node.Args[1]), ast.NewIdent(node.Args[0].(*parser.IdentNode).Ident))
 }
 
-var coreFuncs = []string{"get"}
+var coreFuncs = []string{"get", "len"}
 
 func isCoreFunc(node *parser.CallNode) bool {
 	// Need an identifier for it to be a func
