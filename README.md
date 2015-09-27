@@ -66,7 +66,7 @@ gspc example.gsp
 
 ## More examples
 
-Check out the Prelude. It is written in Gsp.
+Check out the [Prelude](https://github.com/gsp-lang/stdlib/blob/master/prelude/prelude.gsp). It is written in Gsp.
 
 # License
 
