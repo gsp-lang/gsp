@@ -29,8 +29,8 @@ func args(filename string) {
 	fset := token.NewFileSet()
 
 	defaultImports := []string{"github.com/gsp-lang/stdlib/prelude", "github.com/gsp-lang/gsp/core"}
-	for _, defaultImport := range defaultImports {
-		if a.Name.Name != "prelude" {
+	for i, defaultImport := range defaultImports {
+		if !(a.Name.Name == "prelude" && i == 0) {
 			astutil.AddImport(fset, a, defaultImport)
 		}
 	}
