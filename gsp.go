@@ -30,7 +30,7 @@ func args(filename string) {
 
 	defaultImports := []string{"github.com/gsp-lang/stdlib/prelude", "github.com/gsp-lang/gsp/core"}
 	for _, defaultImport := range defaultImports {
-		if a.Name.Name != defaultImport {
+		if a.Name.Name != "prelude" {
 			astutil.AddImport(fset, a, defaultImport)
 		}
 	}
