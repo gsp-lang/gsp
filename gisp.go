@@ -12,7 +12,7 @@ import (
 
 	"github.com/gsp-lang/gsp/generator"
 	"github.com/gsp-lang/gsp/parser"
-	_ "github.com/gsp-lang/prelude"
+	_ "github.com/gsp-lang/stdlib"
 	"golang.org/x/tools/go/ast/astutil"
 )
 
