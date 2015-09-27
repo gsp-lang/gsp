@@ -31,7 +31,7 @@ func args(filename string) {
 
 	defaultImports := []string{"github.com/gsp-lang/stdlib/prelude", "github.com/gsp-lang/gsp/core"}
 	for _, defaultImport := range defaultImports {
-		split := strings.Split(defaultImport)
+		split := strings.Split(defaultImport, "/")
 		pkgName := split[len(split)-1]
 		if !(a.Name.Name == "prelude" && pkgName == "prelude") {
 			if pkgName == "prelude" {
