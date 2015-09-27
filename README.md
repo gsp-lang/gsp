@@ -19,7 +19,7 @@ echo 'export PATH=$PATH:"${pwd}"' >> ~/.profile
 
 ```bash
 cd <GOPATH>/src/github.com/gsp-lang/stdlib/prelude
-gisp prelude.gsp > prelude.go
+gsp prelude.gsp > prelude.go
 ```
 
 # Example
@@ -42,7 +42,7 @@ gisp prelude.gsp > prelude.go
 ## To compile & run
 
 ```bash
-gsp example.gsp
+gspc example.gsp
 ./bin/main
 ```
 
