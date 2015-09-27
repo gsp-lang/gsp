@@ -9,6 +9,7 @@ import (
 	"go/token"
 	"io/ioutil"
 	"os"
+	"strings"
 
 	"github.com/gsp-lang/gsp/generator"
 	"github.com/gsp-lang/gsp/parser"
