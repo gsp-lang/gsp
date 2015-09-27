@@ -25,6 +25,7 @@ gisp prelude.gsp > prelude.go
 # Example
 
 ```lisp
+; Copy into example.gsp
 (ns main
     "/fmt"
     "/net/http")
@@ -44,6 +45,10 @@ gisp prelude.gsp > prelude.go
 gsp example.gsp
 ./bin/main
 ```
+
+## More examples
+
+Check out the Prelude. It is written in Gsp.
 
 # License
 
