@@ -7,6 +7,8 @@ import (
 	"go/token"
 )
 
+var reservedFuncs = []string{"int", "float64", "bool", "string"}
+
 func evalFuncCall(node *parser.CallNode) ast.Expr {
 	switch {
 	case isUnaryOperator(node):
@@ -69,29 +71,38 @@ func evalFuncCall(node *parser.CallNode) ast.Expr {
 	args := EvalExprs(node.Args)
 
 	if c, ok := callee.(*ast.Ident); ok {
-		callee = makeIdomaticIdent(c.Name)
-
-		field := &ast.Field{Type: &ast.Ident{Name: "core.Any"}}
-		fields := []*ast.Field{}
-		for _, _ = range node.Args {
-			fields = append(fields, field)
+		flag := false
+		for _, reservedFunc := range reservedFuncs {
+			if reservedFunc == c.Name {
+				flag = true
+			}
 		}
 
-		callee = &ast.TypeAssertExpr{
-			X: &ast.CallExpr{
-				Fun:  &ast.Ident{Name: "core.Any"},
-				Args: []ast.Expr{callee},
-			},
-			Type: &ast.FuncType{
-				Params: &ast.FieldList{
-					List: fields,
+		if !flag {
+			callee = makeIdomaticIdent(c.Name)
+
+			field := &ast.Field{Type: &ast.Ident{Name: "core.Any"}}
+			fields := []*ast.Field{}
+			for _, _ = range node.Args {
+				fields = append(fields, field)
+			}
+
+			callee = &ast.TypeAssertExpr{
+				X: &ast.CallExpr{
+					Fun:  &ast.Ident{Name: "core.Any"},
+					Args: []ast.Expr{callee},
 				},
-				Results: &ast.FieldList{
-					List: []*ast.Field{
-						&ast.Field{Type: &ast.Ident{Name: "core.Any"}},
+				Type: &ast.FuncType{
+					Params: &ast.FieldList{
+						List: fields,
+					},
+					Results: &ast.FieldList{
+						List: []*ast.Field{
+							&ast.Field{Type: &ast.Ident{Name: "core.Any"}},
+						},
 					},
 				},
-			},
+			}
 		}
 	}
 
