@@ -1,10 +1,12 @@
 package generator
 
 import (
-	h "github.com/gsp-lang/gsp/generator/helpers"
-	"github.com/gsp-lang/gsp/parser"
 	"go/ast"
 	"go/token"
+	"strconv"
+
+	h "github.com/gsp-lang/gsp/generator/helpers"
+	"github.com/gsp-lang/gsp/parser"
 )
 
 var reservedFuncs = []string{"int", "float64", "bool", "string"}
@@ -79,7 +81,8 @@ func evalFuncCall(node *parser.CallNode) ast.Expr {
 		}
 
 		if !flag {
-			callee = makeIdomaticIdent(c.Name)
+			numArgs := strconv.Itoa(len(node.Args))
+			callee = makeIdomaticIdent(c.Name + numArgs)
 
 			field := &ast.Field{Type: &ast.Ident{Name: "core.Any"}}
 			fields := []*ast.Field{}
@@ -474,7 +477,7 @@ func makeAssert(node *parser.CallNode) *ast.TypeAssertExpr {
 	return makeTypeAssertion(EvalExpr(node.Args[1]), ast.NewIdent(node.Args[0].(*parser.IdentNode).Ident))
 }
 
-var coreFuncs = []string{"get", "len"}
+var coreFuncs = []string{"get"}
 
 func isCoreFunc(node *parser.CallNode) bool {
 	// Need an identifier for it to be a func

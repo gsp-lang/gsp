@@ -1,10 +1,12 @@
 package generator
 
 import (
-	h "github.com/gsp-lang/gsp/generator/helpers"
-	"github.com/gsp-lang/gsp/parser"
 	"go/ast"
 	"go/token"
+	"strconv"
+
+	h "github.com/gsp-lang/gsp/generator/helpers"
+	"github.com/gsp-lang/gsp/parser"
 )
 
 func makeIfStmtFunc(node *parser.CallNode) ast.Expr {
@@ -94,6 +96,11 @@ func makeValueSpec(names []*ast.Ident, values []ast.Expr, typ ast.Expr) *ast.Val
 }
 
 func makeFunDeclFromFuncLit(name *ast.Ident, f *ast.FuncLit) *ast.FuncDecl {
+	if name.Name != "main" {
+		numArgs := strconv.Itoa(len(f.Type.Params.List[0].Names))
+		name.Name = name.Name + numArgs
+	}
+
 	return &ast.FuncDecl{
 		Name: name,
 		Type: f.Type,
